@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # AsdiWeb
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
@@ -29,4 +28,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 =======
 # asdi_web
 Management platform of an agricultural farm
->>>>>>> c903ac0d8b04b0b72d7c79f111e4d4bf57dab622
+# asdi_web
+Management platform of an agricultural farm
