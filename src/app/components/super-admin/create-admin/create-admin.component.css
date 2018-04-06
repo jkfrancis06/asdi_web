@@ -1,0 +1,8 @@
+footer.page-footer {
+  position: relative;
+}
+.helper-text{
+  font-size: smaller;
+  margin-top: 0%;
+  color: red;
+}

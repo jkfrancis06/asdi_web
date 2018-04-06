@@ -1,0 +1,175 @@
+<app-super-admin-nav-bar>
+</app-super-admin-nav-bar>
+
+
+<main>
+  <div class="container">
+    <h5>Creer un administrateur</h5>
+    <div class="divider"></div>
+
+    <!--Form start-->
+
+    <div style="margin-bottom: 50%; margin-top: 15%; margin-left: 50% " *ngIf="show == false">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+
+        <div class="spinner-layer spinner-red">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+
+        <div class="spinner-layer spinner-yellow">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+
+        <div class="spinner-layer spinner-green">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="show == true">
+      <div class="col s12 m6 l6">
+        <form novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input name="lastname" [(ngModel)]="admin.lastname"  id="lastname" type="text" class="validate" required>
+              <label for="lastname">Nom </label>
+              <div *ngIf="empty_lastname == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+              </div>
+              <div *ngIf="contain_number == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit contenir que des caracteres alphabetiques </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input name="firstname" [ngModel]="admin.firstname" id="firstname" type="text" class="validate" required>
+              <label for="firstname">Prenoms  </label>
+              <div *ngIf="empty_firstname == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+              </div>
+              <div *ngIf="contain_number == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit contenir que des caracteres alphabetiques</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input name="email" [ngModel]="admin.email" id="email" type="text" class="validate" required>
+              <label for="email">Email  </label>
+              <div *ngIf="empty_email == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+              </div>
+              <div *ngIf="email_exits == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Cette adresse email est deja utilisee</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input name="phone" id="phone" [ngModel]="admin.phone" type="text" class="validate" required>
+              <label for="phone">Contact  </label>
+              <div *ngIf="empty_phoneNumber == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+              </div>
+              <div *ngIf="phone_exits == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Ce numero de telephone est deja utilise</span>
+              </div>
+              <div *ngIf="contain_letter == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Ce numero de telephone est invalide</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input name="adress" id="adress" [ngModel]="admin.adress" type="text" class="validate" required>
+              <label for="adress">Adresse  </label>
+              <div *ngIf="empty_adress == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input name="username" id="username" [ngModel]="admin.username" type="text" class="validate" required>
+              <label for="username">Nom d'utilisateur  </label>
+              <div *ngIf="empty_username == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+              </div>
+              <div *ngIf="username_exits == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Ce nom d'utilisateur existe deja</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input name="password" id="password" [ngModel]="admin.password" type="password" class="validate" required>
+              <label for="password">Mot de passe  </label>
+              <div *ngIf="empty_password == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+              </div>
+              <div *ngIf="match_password == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Les mots de passe doivent etre identiques</span>
+              </div>
+              <div *ngIf="short_password == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Le mots doit contenir au moins 6 caracteres</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input name="conf_password" id="conf_password" [ngModel]="admin.conf_pass" type="password" class="validate" required>
+              <label for="conf_password">Confirmer le mot de passe </label>
+              <div *ngIf="match_password == true">
+                <span class="helper-text" data-error="wrong" data-success="right">Les mots de passe doivent etre identiques</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <button class="waves-effect waves-light btn col s12 m12 l12">Ajouter</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<app-super-admin-footer></app-super-admin-footer>
