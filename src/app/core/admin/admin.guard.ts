@@ -13,29 +13,37 @@ export class AdminGuard implements CanActivate {
   constructor(private adminService: AdminService, private router: Router,  public afAuth: AngularFireAuth) {
   }
 
-  test  = 3;
+  val: boolean ;
 
-  isAuthenticated(): boolean {
+  isAuthenticated() {
     if (localStorage.getItem('admin_data')) {
-      return true;
+      this.adminService.loadLocalAdmin(localStorage.getItem('admin_data')).subscribe(
+        admin => {
+          if (admin) {
+            console.log(true)
+            this.val = true;
+          } else {
+            console.log(false)
+            this.val = false;
+          }
+        });
     } else {
-      return false;
+      console.log(false)
+      this.val = false;
     }
   }
 
-  canActivate(): Observable<boolean> {
+  canActivate() {
     // Check if the user is logged in
-    return this.afAuth.authState.map(auth => {
-      // Check for auth
-
-      if (this.isAuthenticated()) {
-        return true;
-      } else {
-        this.router.navigate(['/admin/login']);
-        return false;
-      }
-
-    });
+    return this.adminService.loadLocalAdmin(localStorage.getItem('admin_data')).map(
+      admin => {
+        if (admin) {
+          return true;
+        } else {
+          this.router.navigate(['/admin/login']);
+          return false;
+        }
+      });
   }
 
 

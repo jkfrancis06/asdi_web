@@ -51,17 +51,27 @@ export class CreateAdminComponent implements OnInit {
     this.adminService.getAdmins().subscribe(
       admin => {
         this.admins = admin;
-        console.log(this.admins);
         this.show = true;
       });
+
+    this.adminService.loadLocalAdmin(localStorage.getItem('admin_data')).subscribe(
+      admin => {
+        console.log(admin);
+        // if (admin.length !== 0) {
+        //   return true;
+        // } else {
+        //   return false;
+        // }
+      });
+
   }
 
   onSubmit({value, valid}: {value: Admin, valid: boolean}) {
-    console.log(value)
     this.validation(value);
-    // if (this.validation(value) === true) {
-    //   this.adminService.addAdmin(value);
-    // }
+    if (this.validation(value) === true) {
+     this.adminService.addAdmin(value);
+     console.log('ok');
+    }
   }
 
   validation(value) {
@@ -108,14 +118,11 @@ export class CreateAdminComponent implements OnInit {
       temp ++;
       this.empty_password = false;
     }
-
-    console.log(temp)
     if (temp >=  7) {
       if ((/^[a-zA-Z]+$/.test(value.firstname)) && (/^[a-zA-Z]+$/.test(value.lastname)) ) {
          this.contain_number = false;
          const cars = ['90', '91', '92' , '93' , '70' , '99' , '98' , '97' , '96' , '22' , '21' , '23'];
          const start = value.phone.substr(0,2);
-         console.log(cars.includes(start));
           if (/^\d+$/.test(value.phone) && value.phone.length === 8  && cars.includes(start) === true ) {
             this.contain_letter = false;
             const emails = [];
@@ -130,15 +137,16 @@ export class CreateAdminComponent implements OnInit {
                 this.email_exits = false;
                 if (phones.includes(value.phone) !== true) {
                   this.phone_exits = false;
-                  if (usernames.includes(value.username) !== true){
+                  if (usernames.includes(value.username) !== true) {
                     this.username_exits = false;
                     if (value.password.length >= 6) {
                       this.short_password = false;
-                      if (value.password === value.conf_pass) {
-                        this.match_password = false;
-                        console.log('ok');
-                      } else {
+                      if (value.password !== value.conf_password) {
                         this.match_password = true;
+                        return false
+                      } else {
+                        this.match_password = false;
+                        return true
                       }
                     } else {
                       this.short_password = true;
@@ -146,7 +154,7 @@ export class CreateAdminComponent implements OnInit {
                   } else {
                     this.username_exits = true;
                   }
-                }else {
+                } else {
                   this.phone_exits = true;
                 }
             } else {
@@ -162,7 +170,7 @@ export class CreateAdminComponent implements OnInit {
         this.contain_number = true;
       }
     } else {
-      console.log('error');
+      //
     }
 
   }

@@ -28,14 +28,14 @@ export class LoginComponent implements OnInit {
     this.adminService.loadLoginData(value.username).subscribe(
       admin => {
         this.admin = admin;
-        if (this.admin.length !== 0) {
-          console.log(this.admin);
+        console.log(admin)
+        if (admin.length !== 0) {
           const bdd_admin = this.admin[0];
           if (value.password !== bdd_admin.password) {
             this.login_error = 1;
           } else {
             this.login_error = 0;
-            localStorage.setItem('admin_data', bdd_admin.$key);
+            localStorage.setItem('admin_data', bdd_admin.key);
             this.router.navigate(['/admin']);
           }
         } else {

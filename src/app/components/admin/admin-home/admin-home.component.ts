@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+
+
 @Component({
   selector: 'app-admin-home',
   templateUrl: './admin-home.component.html',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminHomeComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    console.log(localStorage.getItem('admin_data'));
+  }
 
   ngOnInit() {
   }

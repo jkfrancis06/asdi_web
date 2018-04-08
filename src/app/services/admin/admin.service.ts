@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
 import {Admin} from '../../models/admin';
 
-import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
+import {AngularFireDatabase, AngularFireList, AngularFireObject} from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AdminService {
 
-  admins: FirebaseListObservable<any[]>
-  admin: FirebaseObjectObservable<any>;
+  admins: Observable<any[]>;
+  adminsRef: AngularFireList<any>
+  admin: Observable<any>
+  adminRef: AngularFireObject<any>;
 
   constructor(public af: AngularFireDatabase) {
-    this.admins = this.af.list('/admins') as FirebaseListObservable<Admin[]>;
+    this.adminsRef = this.af.list('/admins');
+    // this.admins = this.adminsRef.valueChanges();
+    this.admins = this.adminsRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
   }
 
   getAdmins() {
@@ -19,23 +25,33 @@ export class AdminService {
   }
 
   addAdmin(admin: Admin) {
-    this.admins.push(admin);
+    this.adminsRef.push(admin);
   }
 
-  loadLoginData(username): FirebaseObjectObservable<Admin> {
-
-
-    return this.af.list('/admins', {
-      query: {
-        orderByChild: 'username',
-        equalTo: username
-      }
+  loadLoginData(username) {
+    this.adminsRef =  this.af.list('/admins', ref => ref.orderByChild('username').equalTo(username));
+    this.admin = this.adminsRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
+    return this.admin;
+  }
 
+  getKey() {
+//     this.itemsRef = db.list('messages');
+// // Use snapshotChanges().map() to store the key
+//     this.items = this.itemsRef.snapshotChanges().map(changes => {
+//       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+//     });
+    this.admins = this.adminsRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
   }
 
   loadLocalAdmin(key) {
-    this.admin = this.af.object('/admins/' + key) as FirebaseObjectObservable<Admin>;
+    // this.adminsRef = this.af.list('/admins');
+    // this.admins = this.adminsRef.valueChanges();
+    this.adminRef = this.af.object('/admins/' + key);
+    this.admin = this.adminRef.valueChanges()
     return this.admin;
   }
 
