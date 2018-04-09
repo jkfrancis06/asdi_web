@@ -1,8 +1,15 @@
-footer.page-footer {
-  position: relative;
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+}
+main {
+  flex: 1 0 auto;
 }
 .helper-text{
   font-size: smaller;
   margin-top: 0%;
   color: red;
 }
+

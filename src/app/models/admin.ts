@@ -8,5 +8,6 @@ export interface Admin {
   username?: string;
   password?: string;
   conf_pass?: string;
+  enabled?: boolean;
   role: 'ROLE_ADMIN';
 }

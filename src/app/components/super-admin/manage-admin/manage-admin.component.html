@@ -1,0 +1,112 @@
+<app-super-admin-nav-bar>
+</app-super-admin-nav-bar>
+
+<main>
+  <div class="container">
+    <h5>Gerer les administrateurs</h5>
+    <div class="divider"></div>
+
+    <!--Form start-->
+
+    <div style="margin-bottom: 50%; margin-top: 15%; margin-left: 50% " *ngIf="show == true">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+
+        <div class="spinner-layer spinner-red">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+
+        <div class="spinner-layer spinner-yellow">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+
+        <div class="spinner-layer spinner-green">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="show == false">
+      <div class="col s12">
+        <table class="striped highlight centered responsive-table">
+          <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Prenoms</th>
+            <th>Email</th>
+            <th>Telephone</th>
+            <th>Adresse</th>
+            <th>Nom d'utilisateur</th>
+            <th>Enabled</th>
+            <th></th>
+          </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let admin of admins; index as i">
+              <td>{{admin.lastname | uppercase}}</td>
+              <td>{{admin.firstname}}</td>
+              <td>{{admin.email}}</td>
+              <td>{{admin.phone}}</td>
+              <td>{{admin.adress}}</td>
+              <td>{{admin.username}}</td>
+              <td>
+                <div *ngIf="admin.enabled == true">
+                  <button class="waves-effect waves-light btn" (click)="enableAdmin(admin.key,admin.enabled,i)">Descativer</button>
+                </div>
+                <div *ngIf="admin.enabled == false">
+                  <button class="waves-effect waves-light btn" (click)="enableAdmin(admin.key,admin.enabled,i)">Activer</button>
+                </div>
+              </td>
+              <td>
+                <button class="waves-effect waves-light btn red" (click)="updateAdminModal.open(); saveKey(admin.key)">Supprimer</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <mz-modal #updateAdminModal [options]="modalOptions">
+      <mz-modal-header>
+        <h4>Avertissement</h4>
+      </mz-modal-header>
+      <mz-modal-content>
+        Voulez-vous vraiment supprimer cet administrateur?
+      </mz-modal-content>
+      <mz-modal-footer>
+        <button mz-button [flat]="true" mz-modal-close>Annuler</button>
+        <button mz-button [flat]="true" mz-modal-close (click)="deleteAdmin()">Confirmer</button>
+      </mz-modal-footer>
+    </mz-modal>
+
+  </div>
+</main>
+
+<app-super-admin-footer></app-super-admin-footer>

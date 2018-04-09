@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Router } from '@angular/router';
+
+
 import {Admin} from '../../../models/admin';
 
 import {AdminService} from '../../../services/admin/admin.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
+
 
 
 @Component({
@@ -21,6 +26,7 @@ export class CreateAdminComponent implements OnInit {
     username: '',
     password: '',
     conf_pass: '',
+    enabled: false,
     role: 'ROLE_ADMIN'
   };
 
@@ -45,7 +51,9 @@ export class CreateAdminComponent implements OnInit {
   admins: any
 
 
-  constructor(public adminService: AdminService) { }
+  constructor(public adminService: AdminService,
+              public router: Router,
+              public flashMessagesService: FlashMessagesService) { }
 
   ngOnInit() {
     this.adminService.getAdmins().subscribe(
@@ -69,8 +77,9 @@ export class CreateAdminComponent implements OnInit {
   onSubmit({value, valid}: {value: Admin, valid: boolean}) {
     this.validation(value);
     if (this.validation(value) === true) {
+      value.enabled = false;
      this.adminService.addAdmin(value);
-     console.log('ok');
+      this.router.navigate(['/super-admin/manage-admin']);
     }
   }
 
@@ -143,10 +152,10 @@ export class CreateAdminComponent implements OnInit {
                       this.short_password = false;
                       if (value.password !== value.conf_password) {
                         this.match_password = true;
-                        return false
+                        return false;
                       } else {
                         this.match_password = false;
-                        return true
+                        return true;
                       }
                     } else {
                       this.short_password = true;

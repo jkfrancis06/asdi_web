@@ -55,6 +55,12 @@ export class AdminService {
     return this.admin;
   }
 
+  activateAdmin(key, value) {
+    return this.adminsRef.update(key, value);
+  }
 
+  deleteAdmin(key) {
+    return this.adminsRef.remove(key);
+  }
 
 }

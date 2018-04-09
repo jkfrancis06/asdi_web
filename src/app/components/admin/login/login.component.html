@@ -18,6 +18,13 @@
                       </div>
                     </div>
                   </div>
+                  <div  *ngIf="activated == 1">
+                    <div class="card red accent-4">
+                      <div class="card-content white-text">
+                        Ce compte a ete desactivé
+                      </div>
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="input-field col s12">
                       <input [ngModel]="login_data.username" id="username" type="text" class="validate" name="username" required>

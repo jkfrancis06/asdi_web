@@ -37,8 +37,14 @@ export class AdminGuard implements CanActivate {
     // Check if the user is logged in
     return this.adminService.loadLocalAdmin(localStorage.getItem('admin_data')).map(
       admin => {
+        console.log(admin);
         if (admin) {
-          return true;
+          if (admin.enabled === true) {
+            return true;
+          } else {
+            this.router.navigate(['/admin/login']);
+            return false;
+          }
         } else {
           this.router.navigate(['/admin/login']);
           return false;
