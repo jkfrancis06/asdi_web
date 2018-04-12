@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import {AngularFireDatabase} from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -50,6 +50,8 @@ import { AdminHomeComponent } from './components/admin/admin-home/admin-home.com
 import { AdminNavBarComponent } from './components/admin/admin-nav-bar/admin-nav-bar.component';
 import { AdminNavFooterComponent } from './components/admin/admin-nav-footer/admin-nav-footer.component';
 import { ManageAdminComponent } from './components/super-admin/manage-admin/manage-admin.component';
+import { SuperAdminLoginComponent } from './components/super-admin/super-admin-login/super-admin-login.component';
+import {LoginService} from "./services/super-admin/login.service";
 
 
 const routes: Routes = [
@@ -57,6 +59,7 @@ const routes: Routes = [
   { path: 'super-admin', component: SuperAdminHomeComponent },
   { path: 'super-admin/create-admin', component: CreateAdminComponent },
   { path: 'super-admin/manage-admin', component: ManageAdminComponent },
+  { path: 'super-admin/login', component: SuperAdminLoginComponent },
   // Admin routes
   {path: 'admin/login', component: LoginComponent},
   {path: 'admin', component: AdminHomeComponent , canActivate: [AdminGuard]}
@@ -85,7 +88,8 @@ export const firebaseConfig = {
     AdminHomeComponent,
     AdminNavBarComponent,
     AdminNavFooterComponent,
-    ManageAdminComponent
+    ManageAdminComponent,
+    SuperAdminLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -102,17 +106,18 @@ export const firebaseConfig = {
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     FlashMessagesModule,
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(firebaseConfig)
   ],
   providers: [
     AdminService,
     FlashMessagesService,
     AngularFireDatabase,
-    AngularFireAuth,
     AuthService,
     AuthGuard,
     AdminGuard,
-    MzToastService
+    MzToastService,
+    LoginService
   ],
   bootstrap: [AppComponent]
 })

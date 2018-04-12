@@ -1,4 +1,4 @@
-export interface SuperAdmin {
+export interface SuperAdminLogin {
   email?: string;
   password?: string;
 }
