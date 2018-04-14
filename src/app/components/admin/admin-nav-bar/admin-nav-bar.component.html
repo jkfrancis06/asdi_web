@@ -11,7 +11,7 @@
   </mz-sidenav-header>
   <mz-sidenav-subheader>Menu</mz-sidenav-subheader>
   <mz-sidenav-link [active]="true">
-    <a href="#" ><i mz-icon [align]="'left'" [icon]="'dashboard'" [size]="'small'">
+    <a routerLink="/admin"><i mz-icon [align]="'left'" [icon]="'dashboard'" [size]="'small'">
     </i>Tableau de bord</a>
   </mz-sidenav-link>
   <mz-sidenav-divider></mz-sidenav-divider>
@@ -21,7 +21,7 @@
   </mz-sidenav-link>
   <mz-sidenav-divider></mz-sidenav-divider>
   <mz-sidenav-link >
-    <a><i mz-icon  [align]="'left'" [icon]="'donut_large'" [size]="'small'">
+    <a routerLink="/admin/farm"><i mz-icon  [align]="'left'" [icon]="'donut_large'" [size]="'small'">
     </i>Fermes</a>
   </mz-sidenav-link>
   <mz-sidenav-divider></mz-sidenav-divider>
@@ -31,19 +31,9 @@
   </mz-sidenav-link>
   <mz-sidenav-divider></mz-sidenav-divider>
   <mz-sidenav-subheader>Utilisateurs</mz-sidenav-subheader>
-  <mz-sidenav-link>
-    <a href="#" ><i mz-icon [align]="'left'" [icon]="'add'" [size]="'small'">
-    </i>Creer</a>
-  </mz-sidenav-link>
-  <mz-sidenav-divider></mz-sidenav-divider>
   <mz-sidenav-link >
-    <a href="#"><i mz-icon [align]="'left'" [icon]="'supervisor_account'" [size]="'small'">
-    </i>Gestionnaires regionaux</a>
-  </mz-sidenav-link>
-  <mz-sidenav-divider></mz-sidenav-divider>
-  <mz-sidenav-link >
-    <a href="#"><i mz-icon [align]="'left'" [icon]="'person_outline'" [size]="'small'">
-    </i>Gestionnaires de fermes</a>
+    <a routerLink="/admin/manager"><i mz-icon [align]="'left'" [icon]="'supervisor_account'" [size]="'small'">
+    </i>Gestionnaires</a>
   </mz-sidenav-link>
   <mz-sidenav-divider></mz-sidenav-divider>
   <mz-sidenav-link >
@@ -72,7 +62,7 @@
           <img src="../../../../assets/img/asdi.png" class="logo">
         </a>
         <ul class="left">
-          <li><a mz-button id="btn-sidenav-demo"><i mz-icon [align]="'right'" [icon]="'apps'" [size]="'medium'">
+          <li><a id="btn-sidenav-demo"><i mz-icon [align]="'right'" [icon]="'apps'" [size]="'medium'">
           </i></a></li>
         </ul>
       </div>

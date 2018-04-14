@@ -1,0 +1,175 @@
+<app-admin-nav-bar></app-admin-nav-bar>
+
+<main class="main">
+  <div class="container">
+
+    <h5>Gerer les fermes</h5>
+    <div class="divider"></div>
+
+    <!--Form start-->
+
+    <div style="margin-bottom: 50%; margin-top: 15%; margin-left: 50% " *ngIf="show == true">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+
+        <div class="spinner-layer spinner-red">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+
+        <div class="spinner-layer spinner-yellow">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+
+        <div class="spinner-layer spinner-green">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="show == false">
+      <div class="fixed-action-btn">
+        <a (click)="bottomSheetModal.open()" class="btn-floating btn-large red">
+          <i class="large material-icons">add</i>
+        </a>
+      </div>
+    </div>
+
+
+    <mz-modal #bottomSheetModal [options]="modalOptions">
+      <mz-modal-header>
+        <h4>Creer une ferme</h4>
+      </mz-modal-header>
+      <mz-modal-content>
+        <div class="row">
+          <form novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="name"  id="name" type="text" class="validate" required>
+                <label for="name">Nom </label>
+                <!--<div *ngIf="empty_lastname == true">-->
+                  <!--<span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>-->
+                <!--</div>-->
+                <!--<div *ngIf="contain_number == true">-->
+                  <!--<span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit contenir que des caracteres alphabetiques </span>-->
+                <!--</div>-->
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea id="description" class="materialize-textarea"></textarea>
+                <label for="description">Description</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="long"  id="long" type="text" class="validate" required>
+                <label for="long">Longitude </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="lat"  id="lat" type="text" class="validate" required>
+                <label for="lat">Latitude </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="adress"  id="adress" type="text" class="validate" required>
+                <label for="adress">Adresse </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="contact"  id="contact" type="text" class="validate" required>
+                <label for="contact">Contact </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea id="activities" class="materialize-textarea"></textarea>
+                <label for="activities">Activites</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="prefecture"  id="prefecture" type="text" class="validate" required>
+                <label for="prefecture">Prefecture </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="canton"  id="canton" type="text" class="validate" required>
+                <label for="canton">Canton </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="ville"  id="ville" type="text" class="validate" required>
+                <label for="ville">Ville </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <mz-select-container>
+                  <select multiple mz-select id="options-select" [label]="'Choisir des gestionnaires'" [placeholder]="'Placeholder'">
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                  </select>
+                </mz-select-container>
+              </div>
+            </div>
+
+
+
+          </form>
+        </div>
+      </mz-modal-content>
+      <mz-modal-footer>
+        <button mz-button [flat]="true" mz-modal-close>Annuler</button>
+        <button mz-button [flat]="true">Creer</button>
+      </mz-modal-footer>
+    </mz-modal>
+
+  </div>
+</main>
+
+
+
+<app-admin-nav-footer></app-admin-nav-footer>

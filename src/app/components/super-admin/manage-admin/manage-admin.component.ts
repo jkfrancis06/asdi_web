@@ -12,7 +12,7 @@ export class ManageAdminComponent implements OnInit {
 
   show = true;
   admins: any;
-  key : string;
+  key: string;
   modalOptions: Materialize.ModalOptions = {
     dismissible: true,
     opacity: .5,
@@ -26,7 +26,7 @@ export class ManageAdminComponent implements OnInit {
     complete: () => { } // Callback for Modal close
   };
 
-  constructor(public adminService: AdminService,private toastService: MzToastService) { }
+  constructor(public adminService: AdminService, private toastService: MzToastService) { }
 
   ngOnInit() {
     this.adminService.getAdmins().subscribe(

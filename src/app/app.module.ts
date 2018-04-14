@@ -30,7 +30,7 @@ import {AdminGuard} from './core/admin/admin.guard';
 
 // Manterialize
 
-import { MzSidenavModule } from 'ng2-materialize';
+import {MzSelectModule, MzSidenavModule} from 'ng2-materialize';
 import { MzIconModule, MzIconMdiModule } from 'ng2-materialize';
 import { MzDropdownModule } from 'ng2-materialize';
 import { MzModalModule } from 'ng2-materialize';
@@ -51,18 +51,24 @@ import { AdminNavBarComponent } from './components/admin/admin-nav-bar/admin-nav
 import { AdminNavFooterComponent } from './components/admin/admin-nav-footer/admin-nav-footer.component';
 import { ManageAdminComponent } from './components/super-admin/manage-admin/manage-admin.component';
 import { SuperAdminLoginComponent } from './components/super-admin/super-admin-login/super-admin-login.component';
-import {LoginService} from "./services/super-admin/login.service";
+import {LoginService} from './services/super-admin/login.service';
+import { FarmComponent } from './components/admin/farm/farm.component';
+import {FarmService} from './services/admin/farm.service';
+import { ManagerComponent } from './components/admin/manager/manager.component';
+import {ManagerService} from "./services/admin/manager.service";
 
 
 const routes: Routes = [
   // Super Admin routes
-  { path: 'super-admin', component: SuperAdminHomeComponent },
+  { path: 'super-admin', component: SuperAdminHomeComponent, canActivate: [AuthGuard]},
   { path: 'super-admin/create-admin', component: CreateAdminComponent },
   { path: 'super-admin/manage-admin', component: ManageAdminComponent },
   { path: 'super-admin/login', component: SuperAdminLoginComponent },
   // Admin routes
   {path: 'admin/login', component: LoginComponent},
-  {path: 'admin', component: AdminHomeComponent , canActivate: [AdminGuard]}
+  {path: 'admin', component: AdminHomeComponent , canActivate: [AdminGuard]},
+  {path: 'admin/farm', component: FarmComponent , canActivate: [AdminGuard]},
+  {path: 'admin/manager', component: ManagerComponent , canActivate: [AdminGuard]}
 ];
 
 
@@ -89,7 +95,9 @@ export const firebaseConfig = {
     AdminNavBarComponent,
     AdminNavFooterComponent,
     ManageAdminComponent,
-    SuperAdminLoginComponent
+    SuperAdminLoginComponent,
+    FarmComponent,
+    ManagerComponent
   ],
   imports: [
     BrowserModule,
@@ -102,6 +110,7 @@ export const firebaseConfig = {
     MzSwitchModule,
     MzButtonModule,
     MzToastModule,
+    MzSelectModule,
     // Materialize
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
@@ -114,6 +123,8 @@ export const firebaseConfig = {
     FlashMessagesService,
     AngularFireDatabase,
     AuthService,
+    FarmService,
+    ManagerService,
     AuthGuard,
     AdminGuard,
     MzToastService,

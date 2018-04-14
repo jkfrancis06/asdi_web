@@ -17,14 +17,23 @@ export class SuperAdminLoginComponent implements OnInit {
     password: ''
   }
   login_error = 0;
+  errorMessage = '';
+  error: {name: string, message: string} = {name: '', message: ''};
 
-  constructor(public loginService: LoginService, public router: Router) { }
+
+  constructor(public loginService: LoginService, public router: Router) {}
 
   ngOnInit() {
+    this.loginService.logoutWithEmail();
   }
 
   onSubmit({value, valid}: {value: SuperAdminLogin , valid: boolean}) {
-    console.log(value);
+    this.loginService.loginWithEmail(value.email, value.password)
+      .then(() => this.router.navigate(['/super-admin'])
+      )
+      .catch(_error => {
+        this.error = _error;
+      });
   }
 
 }
