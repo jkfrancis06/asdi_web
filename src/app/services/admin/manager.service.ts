@@ -37,5 +37,13 @@ export class ManagerService {
     return this.managersRef.remove(key);
   }
 
+  loadManagersForSelect() {
+    this.managersRef =  this.af.list('/managers', ref => ref.orderByChild('enabled').equalTo(true));
+    this.managers = this.managersRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
+    return this.managers;
+  }
+
 
 }

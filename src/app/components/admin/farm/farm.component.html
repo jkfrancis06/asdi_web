@@ -69,101 +69,144 @@
         <div class="row">
           <form novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
 
+
             <div class="row">
               <div class="input-field col s12">
-                <input name="name"  id="name" type="text" class="validate" required>
+                <input name="name" [(ngModel)]="farm.name"  id="name" type="text" class="validate" required>
                 <label for="name">Nom </label>
-                <!--<div *ngIf="empty_lastname == true">-->
-                  <!--<span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>-->
-                <!--</div>-->
-                <!--<div *ngIf="contain_number == true">-->
-                  <!--<span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit contenir que des caracteres alphabetiques </span>-->
-                <!--</div>-->
+                <div >
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
+                <div>
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit contenir que des caracteres alphabetiques </span>
+                </div>
               </div>
             </div>
 
             <div class="row">
               <div class="input-field col s12">
-                <textarea id="description" class="materialize-textarea"></textarea>
+                <textarea id="description" [ngModel]="farm.description" name="description"  class="materialize-textarea"></textarea>
                 <label for="description">Description</label>
+                <div>
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
               </div>
             </div>
 
             <div class="row">
               <div class="input-field col s12">
-                <input name="long"  id="long" type="text" class="validate" required>
+                <input name="long" [ngModel]="farm.long" id="long" type="text" class="validate" required>
                 <label for="long">Longitude </label>
+                <div>
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
+                <div>
+                  <span class="helper-text" data-error="wrong" data-success="right">Une ferme a cette position existe deja</span>
+                </div>
               </div>
             </div>
 
             <div class="row">
               <div class="input-field col s12">
-                <input name="lat"  id="lat" type="text" class="validate" required>
+                <input name="lat" [ngModel]="farm.lat"  id="lat" type="text"  class="validate" required>
                 <label for="lat">Latitude </label>
+                <div>
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
+                <div>
+                  <span class="helper-text" data-error="wrong" data-success="right">Une ferme a cette position existe deja</span>
+                </div>
               </div>
             </div>
 
             <div class="row">
               <div class="input-field col s12">
-                <input name="adress"  id="adress" type="text" class="validate" required>
+                <input name="adress" [ngModel]="farm.adress" id="adress" type="text" class="validate" required>
                 <label for="adress">Adresse </label>
+                <div>
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
               </div>
             </div>
 
             <div class="row">
               <div class="input-field col s12">
-                <input name="contact"  id="contact" type="text" class="validate" required>
+                <input name="contact" [ngModel]="farm.contact" id="contact" type="text" class="validate" required>
                 <label for="contact">Contact </label>
+                <div>
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
+                <div>
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce contact existe deja</span>
+                </div>
+                <div>
+                  <span class="helper-text" data-error="wrong" data-success="right">Contact invalide</span>
+                </div>
               </div>
             </div>
 
             <div class="row">
               <div class="input-field col s12">
-                <textarea id="activities" class="materialize-textarea"></textarea>
+                <textarea id="activities" name="activities" [ngModel]="farm.activities" class="materialize-textarea"></textarea>
                 <label for="activities">Activites</label>
+                <div>
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
               </div>
             </div>
 
             <div class="row">
               <div class="input-field col s12">
-                <input name="prefecture"  id="prefecture" type="text" class="validate" required>
+                <input name="prefecture"  id="prefecture" [ngModel]="farm.prefecture" type="text" class="validate" required>
                 <label for="prefecture">Prefecture </label>
+                <div>
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
               </div>
             </div>
 
             <div class="row">
               <div class="input-field col s12">
-                <input name="canton"  id="canton" type="text" class="validate" required>
+                <input name="canton"  id="canton" type="text" [ngModel]="farm.canton" class="validate" required>
                 <label for="canton">Canton </label>
+                <div>
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
               </div>
             </div>
 
             <div class="row">
               <div class="input-field col s12">
-                <input name="ville"  id="ville" type="text" class="validate" required>
+                <input name="ville"  id="ville" type="text"  class="validate" required>
                 <label for="ville">Ville </label>
+                <div>
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
               </div>
             </div>
 
             <div class="row">
               <div class="input-field col s12">
                 <mz-select-container>
-                  <select multiple mz-select id="options-select" [label]="'Choisir des gestionnaires'" [placeholder]="'Placeholder'">
-                    <option>Option 1</option>
-                    <option>Option 2</option>
+                  <select multiple mz-select id="options-select" name="gestionnaires" [ngModel]="farm.gestionnaires" [label]="'Choisir des gestionnaires'" [placeholder]="'Choisir des gestionnaires'">
+                    <option *ngFor="let manager of managers; index as i" value="{{manager.key}}">{{manager.firstname}} {{manager.lastname}}</option>
                   </select>
+                  <div>
+                    <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                  </div>
                 </mz-select-container>
               </div>
             </div>
 
-
+            <div class="row">
+              <button class="waves-effect waves-light btn col s12 m12 l12">Ajouter</button>
+            </div>
 
           </form>
         </div>
       </mz-modal-content>
       <mz-modal-footer>
         <button mz-button [flat]="true" mz-modal-close>Annuler</button>
-        <button mz-button [flat]="true">Creer</button>
       </mz-modal-footer>
     </mz-modal>
 
