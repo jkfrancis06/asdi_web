@@ -30,7 +30,7 @@ import {AdminGuard} from './core/admin/admin.guard';
 
 // Manterialize
 
-import {MzSelectModule, MzSidenavModule} from 'ng2-materialize';
+import {MzBaseModal, MzModalService, MzSelectModule, MzSidenavModule} from 'ng2-materialize';
 import { MzIconModule, MzIconMdiModule } from 'ng2-materialize';
 import { MzDropdownModule } from 'ng2-materialize';
 import { MzModalModule } from 'ng2-materialize';

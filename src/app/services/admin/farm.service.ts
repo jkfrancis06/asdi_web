@@ -25,4 +25,16 @@ export class FarmService {
     return this.farms;
   }
 
+  addFarm(farm: Farm) {
+    this.farmsRef.push(farm);
+  }
+
+  activateFarm(key, value) {
+    return this.farmsRef.update(key, value);
+  }
+
+  updateFarm(value, key) {
+    return this.farmsRef.update(key, value);
+  }
+
 }

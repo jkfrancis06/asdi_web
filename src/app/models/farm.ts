@@ -11,4 +11,5 @@ export interface Farm {
   canton?: string;
   ville?: string;
   gestionnaires?: any;
+  enable: boolean;
 }

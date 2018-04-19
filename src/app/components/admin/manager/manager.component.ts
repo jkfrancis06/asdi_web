@@ -176,7 +176,7 @@ export class ManagerComponent implements OnInit {
   enableManager(key, enabled, index){
     let manager = this.managers[index];
     if (enabled === true) {
-      this.manager.enabled = false;
+      manager.enabled = false;
       this.managerService.activateManager(key, manager);
       console.log('ok');
     } else {

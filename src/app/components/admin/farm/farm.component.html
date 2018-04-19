@@ -53,6 +53,60 @@
     </div>
 
     <div class="row" *ngIf="show == false">
+
+      <div class="row" *ngIf="show == false">
+        <div class="col s12">
+          <table class="striped highlight centered responsive-table">
+            <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Description</th>
+              <th>Activites</th>
+              <th>Adresse</th>
+              <th>Contact</th>
+              <th>Prefecture</th>
+              <th>Canton</th>
+              <th>Ville</th>
+              <th>Latitude</th>
+              <th>Longitude</th>
+              <th>Gestionnaires</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let farm of farms; index as i">
+                  <td>{{farm.name}}</td>
+                  <td>{{farm.description}}</td>
+                  <td>{{farm.activities}}</td>
+                  <td>{{farm.adress}}</td>
+                  <td>{{farm.contact}}</td>
+                  <td>{{farm.prefecture}}</td>
+                  <td>{{farm.canton}}</td>
+                  <td>{{farm.ville}}</td>
+                  <td>{{farm.long}}</td>
+                  <td>{{farm.lat}}</td>
+                  <td>
+                    <div *ngFor="let gestionnaire of farm.gestionnaires">
+                      <p>{{gestionnaire.firstname}} {{gestionnaire.lastname}}</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div *ngIf="farm.enabled == true">
+                      <button class="btn" (click)="enableFarm(farm.key,farm.enabled,i)">Descativer</button>
+                    </div>
+                    <div *ngIf="farm.enabled == false">
+                      <button class="btn" (click)="enableFarm(farm.key,farm.enabled,i)">Activer</button>
+                    </div>
+                    <div>
+                      <button class="btn red" (click)="modifSheetModal.open(); changeFarm(i,farm.key)">Modifier</button>
+                    </div>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div class="fixed-action-btn">
         <a (click)="bottomSheetModal.open()" class="btn-floating btn-large red">
           <i class="large material-icons">add</i>
@@ -61,7 +115,8 @@
     </div>
 
 
-    <mz-modal #bottomSheetModal [options]="modalOptions">
+
+    <mz-modal #modifSheetModal [options]="modalOptions">
       <mz-modal-header>
         <h4>Creer une ferme</h4>
       </mz-modal-header>
@@ -72,13 +127,145 @@
 
             <div class="row">
               <div class="input-field col s12">
-                <input name="name" [(ngModel)]="farm.name"  id="name" type="text" class="validate" required>
+                <input name="name" [(ngModel)]="modifFarm.name"  type="text" class="validate" required>
                 <label for="name">Nom </label>
-                <div >
+                <div *ngIf="empty.name == true">
                   <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
                 </div>
-                <div>
-                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit contenir que des caracteres alphabetiques </span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea  [ngModel]="modifFarm.description" name="description"  class="materialize-textarea"></textarea>
+                <label for="description">Description</label>
+                <div *ngIf="empty.description == true">
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="long" [ngModel]="modifFarm.long" type="number" class="validate" required>
+                <label for="long">Longitude </label>
+                <div *ngIf="empty.long == true">
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="lat" [ngModel]="modifFarm.lat"  type="number"  class="validate" required>
+                <label for="lat">Latitude </label>
+                <div *ngIf="empty.lat == true">
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="adress" [ngModel]="modifFarm.adress"  type="text" class="validate" required>
+                <label for="adress">Adresse </label>
+                <div *ngIf="empty.adress == true">
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="contact" [ngModel]="modifFarm.contact" type="text" class="validate" required>
+                <label for="contact">Contact </label>
+                <div *ngIf="empty.contact == true">
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea  name="activities" [ngModel]="modifFarm.activities" class="materialize-textarea"></textarea>
+                <label for="activities">Activites</label>
+                <div *ngIf="empty.activities == true">
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="prefecture"  [ngModel]="modifFarm.prefecture" type="text" class="validate" required>
+                <label for="prefecture">Prefecture </label>
+                <div *ngIf="empty.prefecture == true">
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="canton"   type="text" [ngModel]="modifFarm.canton" class="validate" required>
+                <label for="canton">Canton </label>
+                <div *ngIf="empty.canton == true">
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="ville"   type="text" [ngModel]="modifFarm.ville" class="validate" required>
+                <label for="ville">Ville </label>
+                <div *ngIf="empty.ville == true">
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <mz-select-container>
+                  <select multiple mz-select  name="gestionnaires" [ngModel]="modifFarm.gestionnaires" [label]="'Choisir des gestionnaires'" [placeholder]="'Choisir des gestionnaires'">
+                    <option *ngFor="let manager of managers; index as i" value="{{manager.key}}">{{manager.firstname}} {{manager.lastname}}</option>
+                  </select>
+                  <div *ngIf="empty.gestionnaires == true">
+                    <span class="helper-text" data-error="wrong" data-success="right">Au moins un gestionnaire</span>
+                  </div>
+                </mz-select-container>
+              </div>
+            </div>
+
+            <div class="row">
+              <button class="waves-effect waves-light btn col s12 m12 l12">Ajouter</button>
+            </div>
+
+          </form>
+        </div>
+      </mz-modal-content>
+      <mz-modal-footer>
+        <button mz-button [flat]="true" mz-modal-close>Annuler</button>
+      </mz-modal-footer>
+    </mz-modal>
+
+
+    <mz-modal #bottomSheetModal [options]="modalOptions">
+      <mz-modal-header>
+        <h4>Creer une ferme</h4>
+      </mz-modal-header>
+      <mz-modal-content>
+        <div class="row">
+          <form novalidate #f="ngForm" (ngSubmit)="onChange(f)">
+
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input name="name" [(ngModel)]="farm.name"  id="name" type="text" class="validate" required>
+                <label for="name">Nom </label>
+                <div *ngIf="empty.name == true">
+                  <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
                 </div>
               </div>
             </div>
@@ -87,7 +274,7 @@
               <div class="input-field col s12">
                 <textarea id="description" [ngModel]="farm.description" name="description"  class="materialize-textarea"></textarea>
                 <label for="description">Description</label>
-                <div>
+                <div *ngIf="empty.description == true">
                   <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
                 </div>
               </div>
@@ -95,26 +282,20 @@
 
             <div class="row">
               <div class="input-field col s12">
-                <input name="long" [ngModel]="farm.long" id="long" type="text" class="validate" required>
+                <input name="long" [ngModel]="farm.long" id="long" type="number" class="validate" required>
                 <label for="long">Longitude </label>
-                <div>
+                <div *ngIf="empty.long == true">
                   <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
-                </div>
-                <div>
-                  <span class="helper-text" data-error="wrong" data-success="right">Une ferme a cette position existe deja</span>
                 </div>
               </div>
             </div>
 
             <div class="row">
               <div class="input-field col s12">
-                <input name="lat" [ngModel]="farm.lat"  id="lat" type="text"  class="validate" required>
+                <input name="lat" [ngModel]="farm.lat"  id="lat" type="number"  class="validate" required>
                 <label for="lat">Latitude </label>
-                <div>
+                <div *ngIf="empty.lat == true">
                   <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
-                </div>
-                <div>
-                  <span class="helper-text" data-error="wrong" data-success="right">Une ferme a cette position existe deja</span>
                 </div>
               </div>
             </div>
@@ -123,7 +304,7 @@
               <div class="input-field col s12">
                 <input name="adress" [ngModel]="farm.adress" id="adress" type="text" class="validate" required>
                 <label for="adress">Adresse </label>
-                <div>
+                <div *ngIf="empty.adress == true">
                   <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
                 </div>
               </div>
@@ -133,14 +314,8 @@
               <div class="input-field col s12">
                 <input name="contact" [ngModel]="farm.contact" id="contact" type="text" class="validate" required>
                 <label for="contact">Contact </label>
-                <div>
+                <div *ngIf="empty.contact == true">
                   <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
-                </div>
-                <div>
-                  <span class="helper-text" data-error="wrong" data-success="right">Ce contact existe deja</span>
-                </div>
-                <div>
-                  <span class="helper-text" data-error="wrong" data-success="right">Contact invalide</span>
                 </div>
               </div>
             </div>
@@ -149,7 +324,7 @@
               <div class="input-field col s12">
                 <textarea id="activities" name="activities" [ngModel]="farm.activities" class="materialize-textarea"></textarea>
                 <label for="activities">Activites</label>
-                <div>
+                <div *ngIf="empty.activities == true">
                   <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
                 </div>
               </div>
@@ -159,7 +334,7 @@
               <div class="input-field col s12">
                 <input name="prefecture"  id="prefecture" [ngModel]="farm.prefecture" type="text" class="validate" required>
                 <label for="prefecture">Prefecture </label>
-                <div>
+                <div *ngIf="empty.prefecture == true">
                   <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
                 </div>
               </div>
@@ -169,7 +344,7 @@
               <div class="input-field col s12">
                 <input name="canton"  id="canton" type="text" [ngModel]="farm.canton" class="validate" required>
                 <label for="canton">Canton </label>
-                <div>
+                <div *ngIf="empty.canton == true">
                   <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
                 </div>
               </div>
@@ -177,9 +352,9 @@
 
             <div class="row">
               <div class="input-field col s12">
-                <input name="ville"  id="ville" type="text"  class="validate" required>
+                <input name="ville"  id="ville" type="text" [ngModel]="farm.ville" class="validate" required>
                 <label for="ville">Ville </label>
-                <div>
+                <div *ngIf="empty.ville == true">
                   <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
                 </div>
               </div>
@@ -189,17 +364,17 @@
               <div class="input-field col s12">
                 <mz-select-container>
                   <select multiple mz-select id="options-select" name="gestionnaires" [ngModel]="farm.gestionnaires" [label]="'Choisir des gestionnaires'" [placeholder]="'Choisir des gestionnaires'">
-                    <option *ngFor="let manager of managers; index as i" value="{{manager.key}}">{{manager.firstname}} {{manager.lastname}}</option>
+                    <option *ngFor="let manager of managers; index as i" value="{{manager.key}}" selected>{{manager.firstname}} {{manager.lastname}}</option>
                   </select>
-                  <div>
-                    <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                  <div *ngIf="empty.gestionnaires == true">
+                    <span class="helper-text" data-error="wrong" data-success="right">Au moins un gestionnaire</span>
                   </div>
                 </mz-select-container>
               </div>
             </div>
 
             <div class="row">
-              <button class="waves-effect waves-light btn col s12 m12 l12">Ajouter</button>
+              <button class="waves-effect waves-light btn col s12 m12 l12">Modifier</button>
             </div>
 
           </form>
