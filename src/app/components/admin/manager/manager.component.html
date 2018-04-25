@@ -78,23 +78,23 @@
               </thead>
 
               <tbody>
-              <tr *ngFor="let manager of managers; index as i">
-                <td>{{manager.lastname | uppercase}}</td>
-                <td>{{manager.firstname}}</td>
-                <td>{{manager.email}}</td>
-                <td>{{manager.phone}}</td>
-                <td>{{manager.adress}}</td>
-                <td>{{manager.username}}</td>
+              <tr *ngFor="let man of managers; index as i">
+                <td>{{man.lastname | uppercase}}</td>
+                <td>{{man.firstname}}</td>
+                <td>{{man.email}}</td>
+                <td>{{man.phone}}</td>
+                <td>{{man.adress}}</td>
+                <td>{{man.username}}</td>
                 <td>
-                  <div *ngIf="manager.enabled == true">
-                    <button class="waves-effect waves-light btn" (click)="enableManager(manager.key,manager.enabled,i)">Descativer</button>
+                  <div *ngIf="man.enabled == true">
+                    <button class="waves-effect waves-light btn" (click)="enableManager(man.key,man.enabled,i)">Descativer</button>
                   </div>
-                  <div *ngIf="manager.enabled == false">
-                    <button class="waves-effect waves-light btn" (click)="enableManager(manager.key,manager.enabled,i)">Activer</button>
+                  <div *ngIf="man.enabled == false">
+                    <button class="waves-effect waves-light btn" (click)="enableManager(man.key,man.enabled,i)">Activer</button>
                   </div>
                 </td>
                 <td>
-                  <button class="waves-effect waves-light btn red" (click)="updateAdminModal.open(); saveKey(manager.key)">Supprimer</button>
+                  <button class="waves-effect waves-light btn red" (click)="updateAdminModal.open(); saveKey(man.key)">Supprimer</button>
                 </td>
               </tr>
               </tbody>
