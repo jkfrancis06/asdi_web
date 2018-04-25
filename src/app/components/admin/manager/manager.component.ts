@@ -19,9 +19,11 @@ export class ManagerComponent implements OnInit {
     outDuration: 200, // Transition out duration
     startingTop: '100%', // Starting top style attribute
     endingTop: '10%'
-  }
+  };
 
   managers: any;
+
+  modal: any;
 
   key: string;
 
@@ -53,7 +55,7 @@ export class ManagerComponent implements OnInit {
   short_password = false
   match_password = false
 
-  constructor(public managerService: ManagerService, private toastService: MzToastService) { }
+  constructor( public managerService: ManagerService, private toastService: MzToastService) { }
 
   ngOnInit() {
     this.managerService.getManagers().subscribe(
@@ -69,8 +71,17 @@ export class ManagerComponent implements OnInit {
     if (this.validation(value) === true) {
       value.enabled = false;
       this.managerService.addManager(value);
+      this.modal.close()
+      $('#modifSheetModal').modal('close');
+      this.toastService.show('Manager ajoute avec succces', 4000, 'green');
     }
   }
+
+  getModalValue(modal) {
+    this.modal = modal;
+    console.log(this.modal);
+  }
+
 
   validation(value) {
     let temp = 0;

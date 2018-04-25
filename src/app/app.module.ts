@@ -30,7 +30,7 @@ import {AdminGuard} from './core/admin/admin.guard';
 
 // Manterialize
 
-import {MzBaseModal, MzModalService, MzSelectModule, MzSidenavModule} from 'ng2-materialize';
+import {MzBaseModal, MzModalService, MzSelectModule, MzSidenavModule, MzTooltipModule} from 'ng2-materialize';
 import { MzIconModule, MzIconMdiModule } from 'ng2-materialize';
 import { MzDropdownModule } from 'ng2-materialize';
 import { MzModalModule } from 'ng2-materialize';
@@ -111,6 +111,7 @@ export const firebaseConfig = {
     MzButtonModule,
     MzToastModule,
     MzSelectModule,
+    MzTooltipModule,
     // Materialize
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
@@ -128,7 +129,8 @@ export const firebaseConfig = {
     AuthGuard,
     AdminGuard,
     MzToastService,
-    LoginService
+    LoginService,
+    MzToastService
   ],
   bootstrap: [AppComponent]
 })

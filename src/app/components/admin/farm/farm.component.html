@@ -70,6 +70,7 @@
               <th>Latitude</th>
               <th>Longitude</th>
               <th>Gestionnaires</th>
+              <th>Statut</th>
               <th>Actions</th>
             </tr>
             </thead>
@@ -92,13 +93,39 @@
                   </td>
                   <td>
                     <div *ngIf="farm.enabled == true">
-                      <button class="btn" (click)="enableFarm(farm.key,farm.enabled,i)">Descativer</button>
+                      Actif
                     </div>
                     <div *ngIf="farm.enabled == false">
-                      <button class="btn" (click)="enableFarm(farm.key,farm.enabled,i)">Activer</button>
+                      Inactif
+                    </div>
+                  </td>
+                  <td>
+                    <div *ngIf="farm.enabled == true">
+                      <button mz-button mz-tooltip
+                              [tooltip]="'Desactiver'"
+                              [position]="'right'"
+                              [html]="true"
+                              (click)="enableFarm(farm.key,farm.enabled,i)">
+                        <i class="material-icons">power_settings_new</i>
+                      </button>
+                    </div>
+                    <div *ngIf="farm.enabled == false">
+                      <button mz-button mz-tooltip
+                              [tooltip]="'Activer'"
+                              [position]="'right'"
+                              [html]="true"
+                              (click)="enableFarm(farm.key,farm.enabled,i)">
+                        <i class="material-icons">power_settings_new</i>
+                      </button>
                     </div>
                     <div>
-                      <button class="btn red" (click)="modifSheetModal.open(); changeFarm(i,farm.key)">Modifier</button>
+                      <button mz-button mz-tooltip
+                              [tooltip]="'Editer'"
+                              [position]="'right'"
+                              [html]="true"
+                              (click)="modifSheetModal.open(); changeFarm(i,farm.key)" class="red">
+                        <i class="material-icons">mode_edit</i>
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -116,13 +143,13 @@
 
 
 
-    <mz-modal #modifSheetModal [options]="modalOptions">
+    <mz-modal #modifSheetModal  [options]="modalOptions">
       <mz-modal-header>
         <h4>Creer une ferme</h4>
       </mz-modal-header>
       <mz-modal-content>
         <div class="row">
-          <form novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
+          <form novalidate #f="ngForm" (ngSubmit)="onChange(f)">
 
 
             <div class="row">
@@ -228,7 +255,7 @@
             <div class="row">
               <div class="input-field col s12">
                 <mz-select-container>
-                  <select multiple mz-select  name="gestionnaires" [ngModel]="modifFarm.gestionnaires" [label]="'Choisir des gestionnaires'" [placeholder]="'Choisir des gestionnaires'">
+                  <select multiple mz-select id="options-select" name="gestionnaires" [(ngModel)]="gestionnaires" [label]="'Choisir des gestionnaires'" [placeholder]="'Choisir des gestionnaires'">
                     <option *ngFor="let manager of managers; index as i" value="{{manager.key}}">{{manager.firstname}} {{manager.lastname}}</option>
                   </select>
                   <div *ngIf="empty.gestionnaires == true">
@@ -239,7 +266,7 @@
             </div>
 
             <div class="row">
-              <button class="waves-effect waves-light btn col s12 m12 l12">Ajouter</button>
+              <button class="waves-effect waves-light btn col s12 m12 l12" (click)="getModalValue(modifSheetModal)">Modifier</button>
             </div>
 
           </form>
@@ -257,7 +284,7 @@
       </mz-modal-header>
       <mz-modal-content>
         <div class="row">
-          <form novalidate #f="ngForm" (ngSubmit)="onChange(f)">
+          <form novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
 
 
             <div class="row">
@@ -364,7 +391,7 @@
               <div class="input-field col s12">
                 <mz-select-container>
                   <select multiple mz-select id="options-select" name="gestionnaires" [ngModel]="farm.gestionnaires" [label]="'Choisir des gestionnaires'" [placeholder]="'Choisir des gestionnaires'">
-                    <option *ngFor="let manager of managers; index as i" value="{{manager.key}}" selected>{{manager.firstname}} {{manager.lastname}}</option>
+                    <option *ngFor="let manager of managers; index as i" value="{{manager.key}}">{{manager.firstname}} {{manager.lastname}}</option>
                   </select>
                   <div *ngIf="empty.gestionnaires == true">
                     <span class="helper-text" data-error="wrong" data-success="right">Au moins un gestionnaire</span>
@@ -374,7 +401,7 @@
             </div>
 
             <div class="row">
-              <button class="waves-effect waves-light btn col s12 m12 l12">Modifier</button>
+              <button class="waves-effect waves-light btn col s12 m12 l12" (click)="getModalValue(bottomSheetModal)">Modifier</button>
             </div>
 
           </form>

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ComponentRef, OnInit} from '@angular/core';
 import {FarmService} from '../../../services/admin/farm.service';
 import {ManagerService} from "../../../services/admin/manager.service";
 import {Farm} from "../../../models/farm";
+import {MzBaseModal, MzToastService} from "ng2-materialize";
+
 
 @Component({
   selector: 'app-farm',
@@ -11,7 +13,7 @@ import {Farm} from "../../../models/farm";
 export class FarmComponent implements OnInit {
 
   show = true;
-  key : '';
+  key: '';
   farms: any;
   managers: any;
   modifFarm: Farm = {
@@ -70,6 +72,8 @@ export class FarmComponent implements OnInit {
     gestionnaires : false
   }
   valid = false;
+  gestionnaires = [];
+  modal: any;
 
   modalOptions: Materialize.ModalOptions = {
     dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -80,9 +84,12 @@ export class FarmComponent implements OnInit {
     endingTop: '10%'
   };
 
-  constructor(public farmService: FarmService, public managerService: ManagerService) { }
+  private modalExampleRef: ComponentRef<MzBaseModal>;
+
+  constructor(private toastService: MzToastService, public farmService: FarmService, public managerService: ManagerService) { }
 
   ngOnInit() {
+    // gets farms
     this.farmService.getFarms().subscribe(
       farms => {
         this.managerService.loadManagersForSelect().subscribe(
@@ -181,6 +188,7 @@ export class FarmComponent implements OnInit {
 
   commitChanges(valid, value) {
     if (valid === true) {
+      // check in manangers the corresponding manager in push it into farms
           let temp = [];
           for (let i = 0; i < value.gestionnaires.length; i++) {
             for (let j = 0; j < this.managers.length; j++) {
@@ -193,9 +201,13 @@ export class FarmComponent implements OnInit {
           value.gestionnaires = temp;
           value.enabled = true
           this.farmService.addFarm(value);
-          $('#bottomSheetModal').modal('close');
+          this.modal.close()
+          $('#modifSheetModal').modal('close');
+          this.toastService.show('Ferme ajoutee avec succces', 4000, 'green');
     }
   }
+
+  // enamble farms
 
   enableFarm(key, enabled, index) {
     let farm = this.farms[index];
@@ -209,110 +221,129 @@ export class FarmComponent implements OnInit {
     }
   }
 
-  changeFarm(index,key) {
+  // Push selected farm in for modification
+  changeFarm(index, key) {
     this.modifFarm = this.farms[index];
+    console.log(this.modifFarm)
     this.key = key;
   }
 
+  // get modal template value
+  getModalValue(modal) {
+    this.modal = modal;
+    console.log(this.modal);
+  }
 
+
+  // Form valid verification
   onChange({value, valid}: {value: Farm, valid: boolean}) {
-    console.log(value);
-    if (value.name === '') {
+    console.log(this.modifFarm);
+    if (this.modifFarm.name === '') {
       this.modif_empty.name = true;
       this.valid = false;
     } else {
       this.modif_empty.name = false;
-      this.valid = true
+      this.valid = true;
     }
-    if (value.description === '') {
+    if (this.modifFarm.description === '') {
       this.modif_empty.description = true;
       this.valid = false;
     } else {
       this.modif_empty.description = false;
       this.valid = true
     }
-    if (value.long === null) {
+    if (this.modifFarm.long === null) {
       this.modif_empty.long = true;
       this.valid = false;
     } else {
       this.modif_empty.long = false;
       this.valid = true;
     }
-    if (value.lat === null) {
+    if (this.modifFarm.lat === null) {
       this.modif_empty.lat = true;
       this.valid = false;
     } else {
       this.modif_empty.lat = false;
       this.valid = true;
     }
-    if (value.activities === '') {
+    if (this.modifFarm.activities === '') {
       this.modif_empty.activities = true;
       this.valid = false;
     } else {
       this.modif_empty.activities = false;
       this.valid = true
     }
-    if (value.adress === '') {
+    if (this.modifFarm.adress === '') {
       this.modif_empty.adress = true;
       this.valid = false;
     } else {
       this.modif_empty.adress = false;
       this.valid = true;
     }
-    if (value.contact === '') {
+    if (this.modifFarm.contact === '') {
       this.modif_empty.contact = true;
       this.valid = false;
     } else {
       this.modif_empty.contact = false;
       this.valid = true
     }
-    if (value.prefecture === '') {
+    if (this.modifFarm.prefecture === '') {
       this.modif_empty.prefecture = true;
       this.valid = false;
     } else {
       this.modif_empty.prefecture = false;
       this.valid = true
     }
-    if (value.canton === '') {
+    if (this.modifFarm.canton === '') {
       this.modif_empty.canton = true;
       this.valid = false;
     } else {
       this.modif_empty.canton = false;
       this.valid = true
     }
-    if (value.ville === '') {
+    if (this.modifFarm.ville === '') {
       this.modif_empty.ville = true;
       this.valid = false;
     } else {
       this.modif_empty.ville = false;
       this.valid = true
     }
-    if (value.gestionnaires.length === 0) {
+    if (this.modifFarm.gestionnaires.length === 0) {
       this.modif_empty.gestionnaires = true;
       this.valid = false;
     } else {
       this.modif_empty.gestionnaires = false;
       this.valid = true;
     }
-    this.commitModifChanges(this.valid, value);
+    this.commitModifChanges(this.valid, this.modifFarm);
   }
+
+
+  // check in manangers the corresponding manager in push it into farms
 
   commitModifChanges(valid, value) {
     if (valid === true) {
       let temp = [];
-      for (let i = 0; i < value.gestionnaires.length; i++) {
-        for (let j = 0; j < this.managers.length; j++) {
-          if (value.gestionnaires[i] === this.managers[j].key) {
-            temp.push(this.managers[j]);
+      if (this.gestionnaires.length > 0) {
+        for (let i = 0; i < this.gestionnaires.length; i++) {
+          for (let j = 0; j < this.managers.length; j++) {
+            if (this.gestionnaires[i] === this.managers[j].key) {
+              temp.push(this.managers[j]);
+            }
           }
         }
+        value.gestionnaires = temp;
       }
-      console.log(temp);
-      value.gestionnaires = temp;
+      console.log(this.gestionnaires);
       value.enabled = true
+      console.log(value);
       this.farmService.updateFarm(value, this.key);
-      $('#bottomSheetModal').modal('close');
+      this.modal.close()
+      $('#modifSheetModal').modal('close');
+      this.toastService.show('Ferme modifiee avec succces', 4000, 'green');
     }
   }
+
+
 
 }
