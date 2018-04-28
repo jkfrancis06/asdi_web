@@ -1,0 +1,121 @@
+<app-manager-navbar></app-manager-navbar>
+<main>
+  <div class="container">
+    <div class="row">
+      <h4>Rapports d'activite</h4>
+      <div class="divider"></div>
+    </div>
+
+    <div class="row" style="text-align: center">
+      <div style="margin-bottom: 50%; margin-top: 15%;" *ngIf="loader == true">
+        <div class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+          </div>
+
+          <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+          </div>
+
+          <div class="spinner-layer spinner-yellow">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+          </div>
+
+          <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col s12 m12 l12" *ngIf="loader == false">
+
+
+        <div>
+          <mz-collapsible
+            [mode]="'expandable'"
+            [popout]="true">
+            <mz-collapsible-item [active]="false">
+              <mz-collapsible-item-header>
+                First
+              </mz-collapsible-item-header>
+              <mz-collapsible-item-body>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </mz-collapsible-item-body>
+            </mz-collapsible-item>
+          </mz-collapsible>
+          <mz-collapsible
+            [mode]="'expandable'"
+            [popout]="true">
+            <mz-collapsible-item [active]="false">
+              <mz-collapsible-item-header>
+                First
+              </mz-collapsible-item-header>
+              <mz-collapsible-item-body>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </mz-collapsible-item-body>
+            </mz-collapsible-item>
+          </mz-collapsible>
+        </div>
+
+
+        <mz-modal #bottomSheetModal [options]="modalOptions">
+          <mz-modal-header>
+            <h4>Creer un rapport</h4>
+          </mz-modal-header>
+          <mz-modal-content>
+            <!--<form novalidate #f="ngForm" (ngSubmit)="onChange(f)">-->
+              <!--<div class="row">-->
+                <!--<div class="input-field col s12">-->
+                  <!--<input name="name" [(ngModel)]="modifFarm.name"  type="text" class="validate" required>-->
+                  <!--<label for="name">Nom </label>-->
+                  <!--<div *ngIf="empty.name == true">-->
+                    <!--<span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</form>-->
+          </mz-modal-content>
+          <mz-modal-footer>
+            <button mz-button [flat]="true" mz-modal-close>Disagree</button>
+            <button mz-button [flat]="true" mz-modal-close>Agree</button>
+          </mz-modal-footer>
+        </mz-modal>
+
+        <div class="fixed-action-btn" style="margin-bottom: 5%">
+          <a class="btn-floating btn-large teal" (click)="bottomSheetModal.open()">
+            <i class="large material-icons">add</i>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</main>
+<app-manager-footer></app-manager-footer>

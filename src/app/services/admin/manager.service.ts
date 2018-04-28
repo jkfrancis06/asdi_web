@@ -33,6 +33,24 @@ export class ManagerService {
     return this.managersRef.update(key, value);
   }
 
+
+  loadLoginData(username) {
+    this.managersRef =  this.af.list('/managers', ref => ref.orderByChild('username').equalTo(username));
+    this.manager = this.managersRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
+    return this.manager;
+  }
+
+  loadLocalManager(key) {
+    // this.adminsRef = this.af.list('/admins');
+    // this.admins = this.adminsRef.valueChanges();
+    this.managerRef = this.af.object('/managers/' + key);
+    this.manager = this.managerRef.valueChanges()
+    return this.manager;
+  }
+
+
   deleteManager(key) {
     return this.managersRef.remove(key);
   }

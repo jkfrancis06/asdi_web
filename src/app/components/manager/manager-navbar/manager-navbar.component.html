@@ -1,0 +1,52 @@
+
+<mz-sidenav
+  [id]="'sidenav-demo'"
+  [collapseButtonId]="'btn-sidenav-demo'">
+  <mz-sidenav-header>
+    <div class="user-view">
+      <img class="circle avatar" src="../../../../assets/img/eve.png">
+      <div><span class="name">John Doe</span></div>
+      <div><span class="email">Role: Administrateur</span></div>
+    </div>
+  </mz-sidenav-header>
+  <mz-sidenav-subheader>Menu</mz-sidenav-subheader>
+  <mz-sidenav-link [active]="true">
+    <a routerLink="/manager"><i mz-icon [align]="'left'" [icon]="'dashboard'" [size]="'small'">
+    </i>Tableau de bord</a>
+  </mz-sidenav-link>
+  <mz-sidenav-divider></mz-sidenav-divider>
+  <mz-sidenav-link >
+    <a [routerLink]="['report']"><i mz-icon  [align]="'left'" [icon]="'description'" [size]="'small'">
+    </i>Rapports d'activité</a>
+  </mz-sidenav-link>
+  <mz-sidenav-divider></mz-sidenav-divider>
+  <mz-sidenav-link >
+    <a><i mz-icon  [align]="'left'" [icon]="'assignment_ind'" [size]="'small'">
+    </i>Partenaires</a>
+  </mz-sidenav-link>
+  <mz-sidenav-divider></mz-sidenav-divider>
+  <mz-sidenav-link >
+    <a routerLink="/manager"><i mz-icon [align]="'left'" [icon]="'exit_to_app'" [size]="'small'">
+    </i>Menu principal</a>
+  </mz-sidenav-link>
+</mz-sidenav>
+
+
+<header>
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper teal white-text">
+        <a class="text-logo">ASDI</a>
+        <a class="brand-logo" href="#">
+          <img src="../../../../assets/img/asdi.png" class="logo">
+        </a>
+        <ul class="left">
+          <li><a id="btn-sidenav-demo"><i mz-icon [align]="'right'" [icon]="'apps'" [size]="'medium'">
+          </i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+
+

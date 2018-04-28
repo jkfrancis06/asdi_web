@@ -38,6 +38,8 @@ import { MzSwitchModule } from 'ng2-materialize';
 import { MzButtonModule } from 'ng2-materialize';
 import { MzToastModule } from 'ng2-materialize';
 import {MzToastService} from 'ng2-materialize';
+import { MzCollapsibleModule } from 'ng2-materialize'
+
 
 
 import { AppComponent } from './app.component';
@@ -55,7 +57,16 @@ import {LoginService} from './services/super-admin/login.service';
 import { FarmComponent } from './components/admin/farm/farm.component';
 import {FarmService} from './services/admin/farm.service';
 import { ManagerComponent } from './components/admin/manager/manager.component';
-import {ManagerService} from "./services/admin/manager.service";
+import {ManagerService} from './services/admin/manager.service';
+import { GestionnaireComponent } from './components/manager/gestionnaire/gestionnaire.component';
+import { LoginManagerComponent } from './components/manager/login-manager/login-manager.component';
+import {ManagerHomeComponent} from './components/manager/manager-home/manager-home.component';
+import { ManagerNavbarComponent } from './components/manager/manager-navbar/manager-navbar.component';
+import { ManagerFooterComponent } from './components/manager/manager-footer/manager-footer.component';
+import {ManagerGuard} from './core/manager/manager.guard';
+import { ManagerFarmComponent } from './components/manager/manager-farm/manager-farm.component';
+import { ManagerReportComponent } from './components/manager/manager-report/manager-report.component';
+import {ReportService} from "./services/farm/report.service";
 
 
 const routes: Routes = [
@@ -68,7 +79,13 @@ const routes: Routes = [
   {path: 'admin/login', component: LoginComponent},
   {path: 'admin', component: AdminHomeComponent , canActivate: [AdminGuard]},
   {path: 'admin/farm', component: FarmComponent , canActivate: [AdminGuard]},
-  {path: 'admin/manager', component: ManagerComponent , canActivate: [AdminGuard]}
+  {path: 'admin/manager', component: ManagerComponent , canActivate: [AdminGuard]},
+  // Manager routes
+  {path: 'manager/login', component: LoginManagerComponent},
+  {path: 'manager', component: ManagerHomeComponent, canActivate: [ManagerGuard]},
+  {path: 'manager/:key', component: ManagerFarmComponent, canActivate: [ManagerGuard]},
+  {path: 'manager/:key/report', component: ManagerReportComponent, canActivate: [ManagerGuard]},
+
 ];
 
 
@@ -97,7 +114,14 @@ export const firebaseConfig = {
     ManageAdminComponent,
     SuperAdminLoginComponent,
     FarmComponent,
-    ManagerComponent
+    ManagerComponent,
+    GestionnaireComponent,
+    LoginManagerComponent,
+    ManagerHomeComponent,
+    ManagerNavbarComponent,
+    ManagerFooterComponent,
+    ManagerFarmComponent,
+    ManagerReportComponent
   ],
   imports: [
     BrowserModule,
@@ -112,6 +136,7 @@ export const firebaseConfig = {
     MzToastModule,
     MzSelectModule,
     MzTooltipModule,
+    MzCollapsibleModule,
     // Materialize
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
@@ -126,8 +151,12 @@ export const firebaseConfig = {
     AuthService,
     FarmService,
     ManagerService,
+    ReportService,
+    // guards
     AuthGuard,
     AdminGuard,
+    ManagerGuard,
+    // guards
     MzToastService,
     LoginService,
     MzToastService

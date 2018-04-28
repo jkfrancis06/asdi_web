@@ -1,0 +1,86 @@
+
+<nav>
+  <div class="nav-wrapper teal white-text">
+    <a class="text-logo">ASDI</a>
+    <a href="#" class="brand-logo">
+      <img src="../../../../assets/img/asdi.png" class="logo">
+    </a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <a class="waves-effect waves-light"><i class="material-icons left">power_settings_new</i>Deconnexion</a>
+    </ul>
+  </div>
+</nav>
+
+
+<div class="container">
+
+  <div class="row">
+    <h4>Vos fermes</h4>
+    <div class="divider"></div>
+  </div>
+
+  <div class="row" style="text-align: center">
+
+
+    <div style="margin-bottom: 50%; margin-top: 15%;" *ngIf="loader == true">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+
+        <div class="spinner-layer spinner-red">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+
+        <div class="spinner-layer spinner-yellow">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+
+        <div class="spinner-layer spinner-green">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="loader == false">
+      <div *ngFor="let farm of manager_farms; index as i">
+        <div class="col s12 m6 l6">
+          <div class="card farm-card" style="cursor: pointer" (click)="getFarm(farm.key)">
+            <div class="card-content">
+              <span class="card-title">{{farm.name}}</span>
+              <p style="color: rgba(0,0,0,0.38);">{{farm.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
