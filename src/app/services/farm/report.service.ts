@@ -21,7 +21,11 @@ export class ReportService {
     });
   }
 
-  getReports() {
+  getReports(farm) {
+    this.reportsRef =  this.af.list('/reports', ref => ref.orderByChild('farm').equalTo(farm));
+    this.reports = this.reportsRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
     return this.reports;
   }
 

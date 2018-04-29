@@ -55,28 +55,54 @@
       <div class="col s12 m12 l12" *ngIf="loader == false">
 
 
-        <div>
+        <div *ngFor="let report of reports">
           <mz-collapsible
             [mode]="'expandable'"
             [popout]="true">
             <mz-collapsible-item [active]="false">
               <mz-collapsible-item-header>
-                First
+                {{report.title | uppercase}}
               </mz-collapsible-item-header>
               <mz-collapsible-item-body>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </mz-collapsible-item-body>
-            </mz-collapsible-item>
-          </mz-collapsible>
-          <mz-collapsible
-            [mode]="'expandable'"
-            [popout]="true">
-            <mz-collapsible-item [active]="false">
-              <mz-collapsible-item-header>
-                First
-              </mz-collapsible-item-header>
-              <mz-collapsible-item-body>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                <div class="row">
+                  <h5 style="color: rgba(0,0,0,0.38);">cree le {{report.createdAt}}</h5>
+                  <div class="divider"></div>
+                </div>
+                <div class="row">
+                  <div class="section">
+                    <h5>Contenu</h5>
+                    <p>{{report.content}}</p>
+                    <div class="divider"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="section">
+                    <h5>Fichiers joints</h5>
+                    <div *ngIf="report.files.length > 0">
+                      <table>
+                        <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Action</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr *ngFor="let files of report.files">
+                          <td>{{files.name}}</td>
+                          <td>
+                            <a href="{{files.url}}" style="cursor: pointer">Voir</a>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div *ngIf="report.files.length == 0">
+                        Aucun fichier
+                    </div>
+                  </div>
+                </div>
+
               </mz-collapsible-item-body>
             </mz-collapsible-item>
           </mz-collapsible>
@@ -88,21 +114,83 @@
             <h4>Creer un rapport</h4>
           </mz-modal-header>
           <mz-modal-content>
-            <!--<form novalidate #f="ngForm" (ngSubmit)="onChange(f)">-->
-              <!--<div class="row">-->
-                <!--<div class="input-field col s12">-->
-                  <!--<input name="name" [(ngModel)]="modifFarm.name"  type="text" class="validate" required>-->
-                  <!--<label for="name">Nom </label>-->
-                  <!--<div *ngIf="empty.name == true">-->
-                    <!--<span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</form>-->
+
+            <div content="row">
+              <div content="col s12 m12 l12">
+                <div class="file-field input-field">
+                  <div class="btn">
+                    <span>File</span>
+                    <input type="file" (change)="selectFile($event)">
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                  </div>
+                </div>
+
+                <button class="btn btn-success" [disabled]="!selectedFiles"
+                        (click)="upload()">Upload</button>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <table>
+                <thead>
+                <tr>
+                  <th>Nom du fichier</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr *ngFor="let files of uploadedFiles; index as i">
+                  <td>
+                    <a href="{{files.url}}" style="cursor: pointer">{{files.name}}</a>
+                  </td>
+                  <td>
+                    <button class="btn red" (click)='deleteFileUpload(files, i)'>
+                      <i class="material-icons ">delete</i>
+                    </button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+
+            <div class="row">
+              <form novalidate #f="ngForm" (ngSubmit)="onChange(f)">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input name="title" id="title" [(ngModel)]="report.title"  type="text" class="validate" required>
+                    <label for="title">Titre </label>
+                    <div *ngIf="empty.title == true">
+                      <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <textarea name="content" id="content" [(ngModel)]="report.content"  type="text" class="materialize-textarea" required></textarea>
+                    <label for="content">Contenu </label>
+                    <div *ngIf="empty.content == true">
+                      <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <button class="btn col s12 m12 l12" (click)="getModalValue(bottomSheetModal)">Valider</button>
+                </div>
+              </form>
+            </div>
+
+
+
+
+
           </mz-modal-content>
           <mz-modal-footer>
-            <button mz-button [flat]="true" mz-modal-close>Disagree</button>
-            <button mz-button [flat]="true" mz-modal-close>Agree</button>
+            <button mz-button [flat]="true" mz-modal-close>Annuler</button>
           </mz-modal-footer>
         </mz-modal>
 

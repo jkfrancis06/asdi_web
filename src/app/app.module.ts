@@ -67,6 +67,7 @@ import {ManagerGuard} from './core/manager/manager.guard';
 import { ManagerFarmComponent } from './components/manager/manager-farm/manager-farm.component';
 import { ManagerReportComponent } from './components/manager/manager-report/manager-report.component';
 import {ReportService} from "./services/farm/report.service";
+import {FileService} from "./services/farm/file.service";
 
 
 const routes: Routes = [
@@ -152,6 +153,7 @@ export const firebaseConfig = {
     FarmService,
     ManagerService,
     ReportService,
+    FileService,
     // guards
     AuthGuard,
     AdminGuard,
