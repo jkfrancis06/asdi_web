@@ -5,10 +5,11 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import {ReportService} from '../../../services/farm/report.service';
 import {FileService} from '../../../services/farm/file.service';
+import {FarmService} from '../../../services/admin/farm.service';
 
 import {Report} from '../../../models/report';
 import {File} from '../../../models/file';
-import {MzToastService} from "ng2-materialize";
+import {MzToastService} from 'ng2-materialize';
 
 @Component({
   selector: 'app-manager-report',
@@ -17,7 +18,13 @@ import {MzToastService} from "ng2-materialize";
 })
 export class ManagerReportComponent implements OnInit {
 
-  constructor(private toastService: MzToastService, private uploadService: FileService, public route: ActivatedRoute, public router: Router, public reportService: ReportService) { }
+  constructor(private toastService: MzToastService,
+              private uploadService: FileService,
+              public route: ActivatedRoute,
+              public router: Router,
+              public reportService: ReportService,
+              public farmService: FarmService
+  ) { }
 
   loader = true
   reports: any;
@@ -26,6 +33,7 @@ export class ManagerReportComponent implements OnInit {
   report: Report = {
     title : '',
     content : '',
+    createdBy: localStorage.getItem('manager_data')
   };
 
   empty = {
@@ -51,6 +59,17 @@ export class ManagerReportComponent implements OnInit {
   modal: any;
 
   ngOnInit() {
+    this.farmService.getFarms().subscribe(farms => {
+      let temp = false;
+      for (let i = 0; i < farms.length; i++) {
+        if (farms[i].key === this.route.snapshot.params['key']){
+          temp = true;
+        }
+        if (temp === false) {
+          this.router.navigate(['/manager']);
+        }
+      }
+    })
     this.report.farm = this.route.snapshot.params['key'];
     console.log(this.report.farm);
     console.log(new Date().toUTCString());

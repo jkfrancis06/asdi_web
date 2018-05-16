@@ -22,7 +22,6 @@ export class AuthGuard implements CanActivate {
           this.router.navigate(['/super-admin/login']);
           return false;
         } else {
-          // Because we are logged in and can visit this route
           return true;
         }
       });

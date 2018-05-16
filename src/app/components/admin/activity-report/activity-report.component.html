@@ -1,0 +1,88 @@
+<app-admin-nav-bar></app-admin-nav-bar>
+
+
+<main class="main">
+  <div class="container">
+    <h5>Rapports d'activité</h5>
+    <div class="divider" style="margin-bottom: 5%"> </div>
+
+    <div class="row">
+      <div class="col s6">
+        <div class="input-field">
+          <mz-select-container>
+            <select [(ngModel)]="selected_farm" mz-select
+                    id="options-select"
+                    [label]="'Choisissez'"
+                    [placeholder]="'Selectionner une ferme'"
+            >
+              <option *ngFor="let farm of farms" value="{{farm.key}}" class="left circle">{{farm.name}}</option>
+            </select>
+          </mz-select-container>
+        </div>
+      </div>
+      <div class="col s6">
+        <button (click)="loadReport()" mz-button>
+          Chercher
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div *ngFor="let report of reports">
+        <mz-collapsible
+          [mode]="'expandable'"
+          [popout]="true">
+          <mz-collapsible-item [active]="false">
+            <mz-collapsible-item-header>
+              {{report.title | uppercase}}
+            </mz-collapsible-item-header>
+            <mz-collapsible-item-body>
+              <div class="row">
+                <h5 style="color: rgba(0,0,0,0.38);">cree le {{report.createdAt}}</h5>
+                <div class="divider"></div>
+              </div>
+              <div class="row">
+                <div class="section">
+                  <h5>Contenu</h5>
+                  <p>{{report.content}}</p>
+                  <div class="divider"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="section">
+                  <h5>Fichiers joints</h5>
+                  <div *ngIf="report.files.length > 0">
+                    <table>
+                      <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Action</th>
+                      </tr>
+                      </thead>
+
+                      <tbody>
+                      <tr *ngFor="let files of report.files">
+                        <td>{{files.name}}</td>
+                        <td>
+                          <a href="{{files.url}}" style="cursor: pointer">Voir</a>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div *ngIf="report.files.length == 0">
+                    Aucun fichier
+                  </div>
+                </div>
+              </div>
+
+            </mz-collapsible-item-body>
+          </mz-collapsible-item>
+        </mz-collapsible>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<app-admin-nav-footer></app-admin-nav-footer>

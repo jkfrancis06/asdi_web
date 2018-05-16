@@ -4,5 +4,6 @@ export interface Report {
   content?: string;
   farm?: string;
   createdAt?: any;
+  createdBy?: any;
   files?: any;
 }
