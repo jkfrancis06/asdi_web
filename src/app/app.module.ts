@@ -69,6 +69,9 @@ import { ManagerReportComponent } from './components/manager/manager-report/mana
 import {ReportService} from "./services/farm/report.service";
 import {FileService} from "./services/farm/file.service";
 import { ActivityReportComponent } from './components/admin/activity-report/activity-report.component';
+import { InfoComponent } from './components/admin/info/info.component';
+import { LogoutComponent } from './components/admin/logout/logout.component';
+import { ManagerLogoutComponent } from './components/manager/manager-logout/manager-logout.component';
 
 
 const routes: Routes = [
@@ -83,9 +86,12 @@ const routes: Routes = [
   {path: 'admin/farm', component: FarmComponent , canActivate: [AdminGuard]},
   {path: 'admin/manager', component: ManagerComponent , canActivate: [AdminGuard]},
   {path: 'admin/activity-report', component: ActivityReportComponent , canActivate: [AdminGuard]},
+  {path: 'admin/info', component: InfoComponent , canActivate: [AdminGuard]},
+  {path: 'admin/logout', component: LogoutComponent , canActivate: [AdminGuard]},
   // Manager routes
   {path: 'manager/login', component: LoginManagerComponent},
   {path: 'manager', component: ManagerHomeComponent, canActivate: [ManagerGuard]},
+  {path: 'manager/logout', component: ManagerLogoutComponent , canActivate: [ManagerGuard]},
   {path: 'manager/:key', component: ManagerFarmComponent, canActivate: [ManagerGuard]},
   {path: 'manager/:key/report', component: ManagerReportComponent, canActivate: [ManagerGuard]},
 
@@ -125,7 +131,10 @@ export const firebaseConfig = {
     ManagerFooterComponent,
     ManagerFarmComponent,
     ManagerReportComponent,
-    ActivityReportComponent
+    ActivityReportComponent,
+    InfoComponent,
+    LogoutComponent,
+    ManagerLogoutComponent
   ],
   imports: [
     BrowserModule,

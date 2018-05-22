@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(public adminService: AdminService, public router: Router) { }
 
   ngOnInit() {
+    localStorage.removeItem('admin_data');
   }
 
   onSubmit({value, valid}: {value: AdminLogin , valid: boolean}) {

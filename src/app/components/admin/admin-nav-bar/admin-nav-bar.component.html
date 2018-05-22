@@ -4,8 +4,8 @@
   [collapseButtonId]="'btn-sidenav-demo'">
   <mz-sidenav-header>
     <div class="user-view">
-      <img class="circle avatar" src="../../../../assets/img/eve.png">
-      <div><span class="name">John Doe</span></div>
+      <img class="circle avatar" [src]="admin.pic">
+      <div><span class="name">{{admin.firstname}} {{admin.lastname|uppercase}}</span></div>
       <div><span class="email">Role: Administrateur</span></div>
     </div>
   </mz-sidenav-header>
@@ -42,12 +42,12 @@
   </mz-sidenav-link>
   <mz-sidenav-subheader>Mon compte</mz-sidenav-subheader>
   <mz-sidenav-link>
-    <a href="#" ><i mz-icon [align]="'left'" [icon]="'account_box'" [size]="'small'">
+    <a routerLink="/admin/info" ><i mz-icon [align]="'left'" [icon]="'account_box'" [size]="'small'">
     </i>Mes infos</a>
   </mz-sidenav-link>
   <mz-sidenav-divider></mz-sidenav-divider>
   <mz-sidenav-link >
-    <a href="#"><i mz-icon [align]="'left'" [icon]="'exit_to_app'" [size]="'small'">
+    <a routerLink="/admin/logout"><i mz-icon [align]="'left'" [icon]="'exit_to_app'" [size]="'small'">
     </i>Deconnexion</a>
   </mz-sidenav-link>
 </mz-sidenav>

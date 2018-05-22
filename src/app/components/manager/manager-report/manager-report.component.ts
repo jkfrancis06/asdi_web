@@ -79,7 +79,7 @@ export class ManagerReportComponent implements OnInit {
         this.reports = reports;
         this.loader = false;
       });
-    this.uploadService.getFileUploads().subscribe(
+    this.uploadService.getFileUploads(localStorage.getItem('manager_data')).subscribe(
       files => {
         console.log(files);
         for (let i = 0 ; i < files.length; i++) {
@@ -101,6 +101,7 @@ export class ManagerReportComponent implements OnInit {
     console.log(file.name);
 
     this.currentFileUpload = new File(file);
+    this.currentFileUpload.user = localStorage.getItem('manager_data');
     this.uploadService.pushFileToStorage(this.currentFileUpload, this.progress);
   }
 

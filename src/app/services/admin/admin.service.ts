@@ -36,6 +36,10 @@ export class AdminService {
     return this.admin;
   }
 
+  updateAdmin(key, value){
+    return this.adminsRef.update(key, value);
+  }
+
   getKey() {
 //     this.itemsRef = db.list('messages');
 // // Use snapshotChanges().map() to store the key
@@ -48,8 +52,6 @@ export class AdminService {
   }
 
   loadLocalAdmin(key) {
-    // this.adminsRef = this.af.list('/admins');
-    // this.admins = this.adminsRef.valueChanges();
     this.adminRef = this.af.object('/admins/' + key);
     this.admin = this.adminRef.valueChanges()
     return this.admin;

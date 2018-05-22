@@ -1,3 +1,4 @@
+
 export interface Admin {
   $key?: string;
   firstname?: string;
@@ -10,4 +11,5 @@ export interface Admin {
   conf_pass?: string;
   enabled?: boolean;
   role: 'ROLE_ADMIN';
+  pic: any;
 }

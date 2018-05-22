@@ -27,8 +27,11 @@ export class CreateAdminComponent implements OnInit {
     password: '',
     conf_pass: '',
     enabled: false,
-    role: 'ROLE_ADMIN'
-  };
+    role: 'ROLE_ADMIN',
+    pic: 'https://firebasestorage.googleapis.com/v0/b/asdi-20ebf.appspot.com/o/uploads%2FAntu_im-invisible-user.svg.png?alt=media&token=1e456122-ad9b-44b7-a7af-2b2184755dd5'
+};
+
+  pic = 'https://firebasestorage.googleapis.com/v0/b/asdi-20ebf.appspot.com/o/uploads%2FAntu_im-invisible-user.svg.png?alt=media&token=1e456122-ad9b-44b7-a7af-2b2184755dd5'
 
   show = false
 
@@ -62,15 +65,6 @@ export class CreateAdminComponent implements OnInit {
         this.show = true;
       });
 
-    this.adminService.loadLocalAdmin(localStorage.getItem('admin_data')).subscribe(
-      admin => {
-        console.log(admin);
-        // if (admin.length !== 0) {
-        //   return true;
-        // } else {
-        //   return false;
-        // }
-      });
 
   }
 
@@ -78,6 +72,7 @@ export class CreateAdminComponent implements OnInit {
     this.validation(value);
     if (this.validation(value) === true) {
       value.enabled = false;
+      value.pic = this.pic;
      this.adminService.addAdmin(value);
       this.router.navigate(['/super-admin/manage-admin']);
     }

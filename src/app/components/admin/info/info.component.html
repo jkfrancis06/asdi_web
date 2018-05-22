@@ -1,0 +1,111 @@
+<app-admin-nav-bar></app-admin-nav-bar>
+
+<main class="main">
+  <div class="container">
+
+    <h5>Mes info</h5>
+    <div class="divider"></div>
+
+    <div class="row">
+      <form novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+        <div content="col s6 m6 l6">
+          <div class="file-field input-field col s4">
+            <div class="btn">
+              <span>File</span>
+              <input type="file" (change)="selectFile($event)">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+          </div>
+
+          <div class="col s4 m4 l4">
+            <button style="margin-top: 2em" class="btn btn-success" [disabled]="!selectedFiles"
+                    (click)="upload()">Upload</button>
+          </div>
+        </div>
+        <div class="col s4 m4 l4">
+          <img height="100" width="100" [src]="admin.pic"
+               class="circle">
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input name="lastname" [(ngModel)]="admin.lastname"  id="lastname" type="text" class="validate" readonly  required>
+            <label for="lastname">Nom </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input name="firstname" [ngModel]="admin.firstname" id="firstname" type="text" class="validate" readonly  required>
+            <label for="firstname">Prenoms  </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input name="email" [ngModel]="admin.email" id="email" type="text" class="validate" readonly  required>
+            <label for="email">Email  </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input name="phone" id="phone" [ngModel]="admin.phone" type="text" class="validate" readonly required>
+            <label for="phone">Contact  </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input name="adress" id="adress" [ngModel]="admin.adress" type="text" class="validate" required>
+            <label for="adress">Adresse  </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input name="username" id="username" [ngModel]="admin.username" type="text" readonly  class="validate" required>
+            <label for="username">Nom d'utilisateur  </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input name="password" id="password" [ngModel]="admin.password" type="password" class="validate" required>
+            <label for="password">Mot de passe  </label>
+            <div *ngIf="empty_password == true">
+              <span class="helper-text" data-error="wrong" data-success="right">Ce champ ne doit pas etre vide</span>
+            </div>
+            <div *ngIf="match_password == true">
+              <span class="helper-text" data-error="wrong" data-success="right">Les mots de passe doivent etre identiques</span>
+            </div>
+            <div *ngIf="short_password == true">
+              <span class="helper-text" data-error="wrong" data-success="right">Le mots doit contenir au moins 6 caracteres</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input name="conf_password" id="conf_password" [ngModel]="admin.conf_password" type="password" class="validate" required>
+            <label for="conf_password">Confirmer le mot de passe </label>
+            <div *ngIf="match_password == true">
+              <span class="helper-text" data-error="wrong" data-success="right">Les mots de passe doivent etre identiques</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <button class="waves-effect waves-light btn col s12 m12 l12">Ajouter</button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</main>
+
+<app-admin-nav-footer></app-admin-nav-footer>

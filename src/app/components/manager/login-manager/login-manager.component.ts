@@ -21,6 +21,7 @@ export class LoginManagerComponent implements OnInit {
   constructor(private managerService: ManagerService, private router: Router) { }
 
   ngOnInit() {
+    localStorage.removeItem('manager_data');
   }
 
   onSubmit({value, valid}: {value: ManagerLogin , valid: boolean}) {

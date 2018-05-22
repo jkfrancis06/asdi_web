@@ -19,6 +19,7 @@ export class FileService {
   fileRef: AngularFireObject<any>;
 
   constructor(private db: AngularFireDatabase) {
+
     this.filesRef = this.db.list('/temp_files');
     // this.admins = this.adminsRef.valueChanges();
     this.files = this.filesRef.snapshotChanges().map(changes => {
@@ -55,8 +56,12 @@ export class FileService {
     this.db.list('temp_files/').push(fileUpload);
   }
 
-  getFileUploads() {
-    return this.files;
+  getFileUploads(user) {
+    this.filesRef =  this.db.list('/temp_files', ref => ref.orderByChild('user').equalTo(user));
+    this.file = this.filesRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
+    return this.file;
   }
 
   deleteFileUpload(key) {
