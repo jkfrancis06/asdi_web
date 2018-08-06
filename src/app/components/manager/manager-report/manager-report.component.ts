@@ -123,7 +123,7 @@ export class ManagerReportComponent implements OnInit {
         this.empty.content = true;
       } else {
         this.empty.content = false;
-        this.report.createdAt =  new Date().toDateString();
+        this.report.createdAt =  new Date().toUTCString();
         this.report.files = this.uploadedFiles;
         this.report.farm = this.route.snapshot.params['key'];
         console.log(this.report)
