@@ -72,6 +72,7 @@ import { ActivityReportComponent } from './components/admin/activity-report/acti
 import { InfoComponent } from './components/admin/info/info.component';
 import { LogoutComponent } from './components/admin/logout/logout.component';
 import { ManagerLogoutComponent } from './components/manager/manager-logout/manager-logout.component';
+import {AvatarModule} from "ngx-avatar";
 
 
 const routes: Routes = [
@@ -139,6 +140,7 @@ export const firebaseConfig = {
   imports: [
     BrowserModule,
     FormsModule,
+    AvatarModule,
     // Materialize modules
     MzSidenavModule,
     MzIconModule,

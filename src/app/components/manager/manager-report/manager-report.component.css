@@ -3,3 +3,16 @@
   margin-top: 0%;
   color: red;
 }
+
+.report_tiltle{
+  font-weight: bold;
+}
+
+.report-content{
+  text-align: justify;
+}
+
+.report-createdBy{
+  font-weight: 500;
+  margin-left: 1em;
+}

@@ -10,6 +10,7 @@ import {FarmService} from '../../../services/admin/farm.service';
 import {Report} from '../../../models/report';
 import {File} from '../../../models/file';
 import {MzToastService} from 'ng2-materialize';
+import {ManagerService} from "../../../services/admin/manager.service";
 
 @Component({
   selector: 'app-manager-report',
@@ -23,7 +24,8 @@ export class ManagerReportComponent implements OnInit {
               public route: ActivatedRoute,
               public router: Router,
               public reportService: ReportService,
-              public farmService: FarmService
+              public farmService: FarmService,
+              public managerService: ManagerService
   ) { }
 
   loader = true
@@ -122,14 +124,21 @@ export class ManagerReportComponent implements OnInit {
       if (value.content === '') {
         this.empty.content = true;
       } else {
-        this.empty.content = false;
-        this.report.createdAt =  new Date().toUTCString();
-        this.report.files = this.uploadedFiles;
-        this.report.farm = this.route.snapshot.params['key'];
-        console.log(this.report)
-        this.reportService.addReport(this.report);
-        this.modal.close();
-        this.toastService.show('Rapport ajouté avec succces', 4000, 'green');
+        this.managerService.loadLocalManager(localStorage.getItem('manager_data')).subscribe(
+          manager => {
+            this.empty.content = false;
+            this.report.createdAt =  new Date().toUTCString();
+            this.report.createdBy = manager
+            this.report.files = this.uploadedFiles;
+            this.report.farm = this.route.snapshot.params['key'];
+            console.log(this.report)
+            this.reportService.addReport(this.report);
+            this.modal.close();
+            this.report = {};
+            this.uploadedFiles = [];
+            this.toastService.show('Rapport ajouté avec succces', 4000, 'green');
+          }
+        );
       }
     }
   }

@@ -60,18 +60,25 @@
             [mode]="'expandable'"
             [popout]="true">
             <mz-collapsible-item [active]="false">
-              <mz-collapsible-item-header>
+              <mz-collapsible-item-header class="report_tiltle">
                 {{report.title | uppercase}}
               </mz-collapsible-item-header>
               <mz-collapsible-item-body>
+                <div class="row valign-wrapper">
+                  <div class="col s12 m7 l7  valign-wrapper">
+                    <ngx-avatar name="{{report.createdBy.firstname}}"></ngx-avatar>
+                    <span class="report-createdBy">{{report.createdBy.firstname}} {{report.createdBy.lastname}}</span>
+                  </div>
+                  <div class="col s12 m5 l5" style="color: rgba(0,0,0,0.38);">cree le {{report.createdAt}}</div>
+                </div>
                 <div class="row">
-                  <h5 style="color: rgba(0,0,0,0.38);">cree le {{report.createdAt}}</h5>
                   <div class="divider"></div>
                 </div>
                 <div class="row">
                   <div class="section">
-                    <h5>Contenu</h5>
-                    <p>{{report.content}}</p>
+                    <blockquote class="report-content">
+                      {{report.content}}
+                    </blockquote>
                     <div class="divider"></div>
                   </div>
                 </div>
